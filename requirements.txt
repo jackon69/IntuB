@@ -6,3 +6,4 @@ Flask-WTF
 psycopg2-binary
 gunicorn
 scikit-learn
+email_validator
