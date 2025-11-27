@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+{% block title %}New intubation record – intuB{% endblock %}
+{% block content %}
+  <h2>New intubation record</h2>
+  <form method="post">
+    {{ form.hidden_tag() }}
+
+    <fieldset>
+      <legend>Patient</legend>
+      <div class="form-group">{{ form.age.label }} {{ form.age(class="form-control") }}</div>
+      <div class="form-group">{{ form.weight.label }} {{ form.weight(class="form-control") }}</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Airway assessment</legend>
+      <div class="form-group">{{ form.dtm.label }} {{ form.dtm(class="form-control") }}</div>
+      <div class="form-group">{{ form.dii.label }} {{ form.dii(class="form-control") }}</div>
+      <div class="form-group">{{ form.mallampati.label }} {{ form.mallampati(class="form-control") }}</div>
+      <div class="form-group">{{ form.stop_bang.label }} {{ form.stop_bang(class="form-control") }}</div>
+      <div class="form-group">{{ form.alganzouri.label }} {{ form.alganzouri(class="form-control") }}</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Technique</legend>
+      <div class="form-group">{{ form.drug_used.label }} {{ form.drug_used(class="form-control") }}</div>
+      <div class="form-group">{{ form.technique.label }} {{ form.technique(class="form-control") }}</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Outcome</legend>
+      <div class="form-group">{{ form.success() }} {{ form.success.label }}</div>
+      <div class="form-group">{{ form.cormack.label }} {{ form.cormack(class="form-control") }}</div>
+    </fieldset>
+
+    <div class="form-group">
+      {{ form.submit(class="btn") }}
+    </div>
+  </form>
+{% endblock %}

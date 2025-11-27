@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+{% block title %}Analytics – intuB{% endblock %}
+{% block content %}
+  <h2>Analytics</h2>
+
+  {% if total == 0 %}
+    <p>No records yet.</p>
+  {% else %}
+    <p>Total records: {{ total }} – Easy: {{ easy_count }} – Difficult: {{ diff_count }}</p>
+    <p>Age (N, mean, min, max): {{ age_stats[0] }}, {{ '%.1f' % age_stats[1] if age_stats[1] else '?' }}, {{ age_stats[2] }}, {{ age_stats[3] }}</p>
+
+    <h3>Model performance (logistic regression)</h3>
+    <pre id="metrics">Loading...</pre>
+
+    <canvas id="coeffChart" width="400" height="200"></canvas>
+
+    <script>
+      fetch("{{ url_for('main.analytics_json') }}")
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById("metrics").textContent = data.error;
+            return;
+          }
+          document.getElementById("metrics").textContent = JSON.stringify(data, null, 2);
+
+          const ctx = document.getElementById('coeffChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: data.feature_names,
+              datasets: [{
+                label: 'Logistic regression coefficients',
+                data: data.coefficients,
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: { title: { display: true, text: 'Feature' } },
+                y: { title: { display: true, text: 'Coefficient' } }
+              }
+            }
+          });
+        })
+        .catch(err => {
+          document.getElementById("metrics").textContent = err;
+        });
+    </script>
+  {% endif %}
+{% endblock %}

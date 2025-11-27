@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% block title %}Dashboard – intuB{% endblock %}
+{% block content %}
+  <h2>Dashboard</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Total records</h3>
+      <p>{{ total }}</p>
+    </div>
+    <div class="card">
+      <h3>Your records</h3>
+      <p>{{ user_total }}</p>
+    </div>
+    <div class="card">
+      <h3>Difficult intubations</h3>
+      <p>{{ difficult }}</p>
+    </div>
+  </div>
+  <p><a href="{{ url_for('main.new_record') }}">Add a new record</a></p>
+{% endblock %}
